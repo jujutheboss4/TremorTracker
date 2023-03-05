@@ -1,5 +1,6 @@
 //Main file for project -- pulls EMG and gyro data from arduino and outputs to serial
-//Credits to MPU6050_tockn for parts of gyro data code
+//MPU6050_tockn library utilized for certain parts of gyro code, open source license can be seen at github repo below
+//https://github.com/tockn/MPU6050_tockn/blob/master/examples/GetAllData/GetAllData.ino
 
 //THE CURRENT SETUP IN THIS CODE PROVIDES 1200 SAMPLES PER SECOND ON A SINGLE ANALOG INPUT (A0)
 //THE OUTPUT IS THE DIGITIZED SIGNAL (0-1023; 10-BIT) AND THE TIME BETWEEN SAMPLES IN MICROSECONDS
