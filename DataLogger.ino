@@ -1,3 +1,6 @@
+//Main file for project -- pulls EMG and gyro data from arduino and outputs to serial
+//Credits to MPU6050_tockn for parts of gyro data code
+
 //THE CURRENT SETUP IN THIS CODE PROVIDES 1200 SAMPLES PER SECOND ON A SINGLE ANALOG INPUT (A0)
 //THE OUTPUT IS THE DIGITIZED SIGNAL (0-1023; 10-BIT) AND THE TIME BETWEEN SAMPLES IN MICROSECONDS
 #include <MPU6050_tockn.h>
@@ -26,8 +29,6 @@ void setup()
   mpu6050.calcGyroOffsets(true);
   //Disable global interrupts
   cli();
-  
-  
   
   // Set up Timer 1 to interrupt at target frequency (for Compare Match B)
   TCCR1A = 0;// clear register
@@ -76,8 +77,6 @@ void loop()
     serial_string = "";
     
   }
-  // Serial.print(serial_string2);
-  // serial_string2 = "";
   Serial.print(mpu6050.getGyroAngleX());Serial.print(",");
   Serial.print(mpu6050.getGyroAngleY());Serial.print(",");
   Serial.print(mpu6050.getGyroAngleZ());Serial.print(",");
@@ -88,9 +87,6 @@ void loop()
 // Interrupt service routine for the ADC completion
 ISR(ADC_vect)
 { 
-  //current_time = micros();
-  
-  
   //For 10-bit resolution (only when operating with a prescaler of 128)
   adc_now = ADC;// current ADC value
   //For 8-bit resolution (for operating with a prescaler as low as 16)
@@ -98,8 +94,6 @@ ISR(ADC_vect)
 
   //FOR SINGLE INPUT (SIGNAL)
   serial_string = String(adc_now) + ",";
-  //serial_string2 += String(mpu6050.getGyroAngleX())+ "," + String(mpu6050.getGyroAngleY())+ "," + String(mpu6050.getGyroAngleZ()) + "\n";
-  //last_time = current_time;
   
 }
 ISR(TIMER1_COMPB_vect)
